@@ -18,6 +18,9 @@ class LockedRoomTest {
 	void setup() {
 		key = new Key("Key", "Just a normal, ordinary key.");
 		lockedRoom = new Room("1", "Locked Room", "This room is locked, you need a key to unlock it.");
+		assertEquals("1", lockedRoom.getId());
+		assertEquals("Locked Room", lockedRoom.getName());
+		assertEquals("This room is locked, you need a key to unlock it.", lockedRoom.getDescription());
 	}
 	
 	@ParameterizedTest
