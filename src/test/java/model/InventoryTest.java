@@ -23,6 +23,9 @@ class InventoryTest {
 	void setup() {
 		inventory = new Inventory(CAPACITY);
 		potion = new Potion("Potion", "+25 health for the player.", 25);
+		assertEquals("Potion", potion.toString());
+		assertEquals("+25 health for the player.", potion.getDescription());
+		assertEquals(25, potion.getHealingAmount());
 	}
 	
 	@Test
