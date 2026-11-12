@@ -7,30 +7,91 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.example.haunted.model.Player;
+import java.util.Optional;
+
 import com.example.haunted.model.Inventory;
+import com.example.haunted.model.Item;
 import com.example.haunted.model.Potion;
 
 class InventoryTest {
-	// ARRANGE - Creates a new player with an empty inventory before each test to isolate test environments
-	private Player player;
+	// ARRANGE - Creates an empty inventory before each test to isolate test environments, defines max inventory space as 3
+	private Inventory inventory;
 	private Potion potion;
+	private final int CAPACITY = 3;
+	
 	@BeforeEach
 	void setup() {
-		Inventory playerInventory = new Inventory(25);
-		player = new Player("Sam", 100, 5, 0, playerInventory);
-		potion = new Potion("Healing Potion", "Gives +25 health to the player.", 25);
+		inventory = new Inventory(CAPACITY);
+		potion = new Potion("Potion", "+25 health for the player.", 25);
 	}
 	
-	// Happy Path Tests
 	@Test
-	void shouldAddItemToInventory() {
+	void shouldAddItemWhenNotFull() {
 		// ACT
-		boolean result = player.getInventory().addItem(potion);
+		boolean added = inventory.addItem(potion);
 		
-		//ASSERT
-		assertTrue(result);
+		// ASSERT
+		assertTrue(added);
+		assertEquals(1, inventory.getItems().size());
+		assertFalse(inventory.isFull());
 	}
 	
-	// Edge Case Tests
+	@Test
+	void shouldNotAddItemWhenFull() {
+		// ARRANGE - Fill 
+		for (int i = 0; i<CAPACITY; i++) {
+			inventory.addItem(potion);
+		}
+		assertTrue(inventory.isFull());
+		
+		// ACT
+		boolean added = inventory.addItem(potion);
+		
+		// ASSERT
+		assertFalse(added);
+		assertEquals(3, inventory.getItems().size());
+	}
+	
+	@ParameterizedTest
+	@ValueSource(strings = {"Potion", "potion", "POTION", "pOTIOn"})
+	void shouldFindItemInInventoryAndIgnoreCase(String searchName) {
+		// Arrange
+		inventory.addItem(potion);
+		
+		// ACT
+		Optional<Item> found = inventory.findItem(searchName);
+		
+		// ASSERT
+		assertTrue(found.isPresent());
+		assertEquals("Potion", found.get().getName());
+		assertTrue(inventory.contains(searchName));
+	}
+	
+	@Test
+	void shouldReturnEmptyOptionalWhenItemNotFound() {
+		// ACT
+		Optional<Item> found = inventory.findItem("Potion");
+		
+		// ASSERT
+		assertTrue(found.isEmpty());
+		assertFalse(inventory.contains("Potion"));
+	}
+	
+	@Test
+	void shouldRemoveItemWhenPresent() {
+		// ARRANGE
+		inventory.addItem(potion);
+		
+		// ACT
+		Item removed = inventory.removeItem("Potion");
+		
+		// ASSERT
+		assertEquals("Potion", removed.getName());
+		assertEquals(0, inventory.getItems().size());
+	}
+	
+	@Test
+	void shouldReturnCorrectCapacity() {
+		assertEquals(CAPACITY, inventory.getCapacity());
+	}
 }
