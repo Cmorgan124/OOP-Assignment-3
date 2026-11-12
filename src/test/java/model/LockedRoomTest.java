@@ -76,4 +76,19 @@ class LockedRoomTest {
 		assertFalse(result);
 		assertTrue(lockedRoom.isLocked());
 	}
+	
+	@Test
+	void throwsExceptionWhenIdIsNull() {
+		assertThrows(NullPointerException.class, () -> new Room(null, "Name", "Description"));
+	}
+	
+	@Test
+	void throwsExceptionWhenNameIsNull() {
+		assertThrows(NullPointerException.class, () -> new Room("Id", null, "Description"));
+	}
+
+	@Test
+	void throwsExceptionWhenDescriptionIsNull() {
+		assertThrows(NullPointerException.class, () -> new Room("Id", "Name", null));
+	}
 }
