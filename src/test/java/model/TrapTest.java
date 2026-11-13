@@ -14,5 +14,12 @@ public class TrapTest {
     private final int damage = 10;
     private final boolean oneTimeTrigger = true;
     private boolean armed = true;
+    
+    @BeforeEach
+    void setUp() {
+        trap = new Trap("name", type, damage, oneTimeTrigger, armed);
+    }
+    
+    
 
 }
