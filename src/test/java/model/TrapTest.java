@@ -50,5 +50,13 @@ public class TrapTest {
         assertThrows(NullPointerException.class, () -> new Trap("name", null, 2, false, false));
     }
     
+    @Test
+    void shouldgetName() {
+
+        //Act
+        String name = trap.getName();
+        //Assert
+        assertEquals("name", name);
+    }
     
 }
