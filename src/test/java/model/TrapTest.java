@@ -79,4 +79,13 @@ public class TrapTest {
         assertEquals(damage, actualDamage);
     }
     
+    @Test
+    void shouldArmTrap() {
+
+        //Act
+        boolean actualArmed = trap.isArmed();
+
+        //Assert
+        assertEquals(armed, actualArmed);
+    }
 }
