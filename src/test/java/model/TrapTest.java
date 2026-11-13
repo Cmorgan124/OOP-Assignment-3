@@ -35,5 +35,11 @@ public class TrapTest {
         assertFalse(testTrap.isArmed());
     }
 
+    @Test
+    void shouldThrowExceptionWhenNameIsNull(){
+
+        //Assert
+        assertThrows(NullPointerException.class, () -> new Trap(null, TrapType.Steam, 2, false, false));
+    }
 
 }
