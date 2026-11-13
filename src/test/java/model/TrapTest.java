@@ -98,4 +98,14 @@ public class TrapTest {
         //Assert
         assertEquals(oneTimeTrigger, actualOneTimeTrigger);
     }
+    
+    @Test
+    void shouldDisarm() {
+
+        //Act
+        trap.disarm();
+
+        //Assert
+        assertFalse(trap.isArmed());
+    }
 }
