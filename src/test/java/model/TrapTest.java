@@ -51,7 +51,7 @@ public class TrapTest {
     }
     
     @Test
-    void shouldgetName() {
+    void shouldGetName() {
 
         //Act
         String name = trap.getName();
@@ -69,6 +69,14 @@ public class TrapTest {
         assertEquals(type, testType);
     }
     
-    
+    @Test
+    void shouldGetDamage() {
+
+        //Act
+        int actualDamage = trap.getDamage();
+
+        //Assert
+        assertEquals(damage, actualDamage);
+    }
     
 }
