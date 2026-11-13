@@ -71,6 +71,19 @@ class InventoryTest {
 	}
 	
 	@Test
+	void shouldNotFindItemWithDifferentName() {
+	    // ARRANGE
+	    inventory.addItem(potion);
+
+	    // ACT
+	    Optional<Item> found = inventory.findItem("Sword");
+
+	    // ASSERT
+	    assertTrue(found.isEmpty());
+	    assertFalse(inventory.contains("Sword"));
+	}
+	
+	@Test
 	void shouldReturnEmptyOptionalWhenItemNotFound() {
 		// ACT
 		Optional<Item> found = inventory.findItem("Potion");
