@@ -25,11 +25,11 @@ public class TrapTest {
     void shouldInitializeTrap() {
 
         //Act
-        Trap testTrap = new Trap("Poison", TrapType.Steam, 2, false, false);
+        Trap testTrap = new Trap("Poison", TrapType.STEAM, 2, false, false);
 
         //Assert
         assertEquals("Poison", testTrap.getName());
-        assertEquals(TrapType.Steam, testTrap.getType());
+        assertEquals(TrapType.STEAM, testTrap.getType());
         assertEquals(2, testTrap.getDamage());
         assertFalse(testTrap.isOneTimeTrigger());
         assertFalse(testTrap.isArmed());
@@ -39,7 +39,7 @@ public class TrapTest {
     void shouldThrowExceptionWhenNameIsNull(){
 
         //Assert
-        assertThrows(NullPointerException.class, () -> new Trap(null, TrapType.Steam, 2, false, false));
+        assertThrows(NullPointerException.class, () -> new Trap(null, TrapType.STEAM, 2, false, false));
     }
 
     
