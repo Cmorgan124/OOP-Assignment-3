@@ -10,14 +10,14 @@ import com.example.haunted.model.TrapType;
 public class TrapTest {
 	//Arrange
     private Trap trap;
-    private TrapType type;
+    private TrapType type = TrapType.ELECTRIC;
     private final int damage = 10;
     private final boolean oneTimeTrigger = true;
     private boolean armed = true;
     
     @BeforeEach
     void setUp() {
-        trap = new Trap("name", type, damage, oneTimeTrigger, armed);
+        trap = new Trap("name", type, damage, armed, oneTimeTrigger);
     }
     
  
