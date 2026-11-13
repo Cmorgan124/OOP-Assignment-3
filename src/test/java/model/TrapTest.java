@@ -88,4 +88,14 @@ public class TrapTest {
         //Assert
         assertEquals(armed, actualArmed);
     }
+    
+    @Test
+    void shouldActivateOneTimeTrigger() {
+
+        //Act
+        boolean actualOneTimeTrigger = trap.isOneTimeTrigger();
+
+        //Assert
+        assertEquals(oneTimeTrigger, actualOneTimeTrigger);
+    }
 }
