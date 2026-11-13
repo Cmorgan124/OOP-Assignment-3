@@ -42,4 +42,13 @@ public class TrapTest {
         assertThrows(NullPointerException.class, () -> new Trap(null, TrapType.Steam, 2, false, false));
     }
 
+    
+    @Test
+    void shouldThrowExceptionWhenTypeIsNull(){
+
+        //Assert
+        assertThrows(NullPointerException.class, () -> new Trap("name", null, 2, false, false));
+    }
+    
+    
 }
