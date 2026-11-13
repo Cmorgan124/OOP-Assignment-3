@@ -20,7 +20,7 @@ public class TrapTest {
         trap = new Trap("name", type, damage, oneTimeTrigger, armed);
     }
     
-  //Act
+ 
     @Test
     void shouldInitializeTrap() {
 
@@ -58,5 +58,17 @@ public class TrapTest {
         //Assert
         assertEquals("name", name);
     }
+    
+
+    @Test
+    void shouldGetType() {
+
+        //Act
+        TrapType testType = trap.getType();
+        //Assert
+        assertEquals(type, testType);
+    }
+    
+    
     
 }
