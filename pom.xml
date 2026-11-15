@@ -53,7 +53,7 @@
                 </dependencies>
                 <configuration>
                     <targetClasses>
-                        <param>com.example.haunted.model.*</param>
+                        <param>com.example.haunted.*</param>
                     </targetClasses>
                     <targetTests>
                     	<param>config.*</param>
