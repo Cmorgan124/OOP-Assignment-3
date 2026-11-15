@@ -56,7 +56,11 @@
                         <param>com.example.haunted.model.*</param>
                     </targetClasses>
                     <targetTests>
+                    	<param>config.*</param>
+                    	<param>engine.*</param>
+                    	<param>events.*</param>
                         <param>model.*</param>
+                        <param>rules.*</param>
                     </targetTests>
                 </configuration>
             </plugin>
