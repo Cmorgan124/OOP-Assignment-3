@@ -94,6 +94,14 @@ void shouldGetAttack() {
     assertEquals(this.attack, attack);
 }
 
+@Test
+void shouldGetCurrentAttack() {
+    //Act
+    int currentAttack = bossMonster.getCurrentAttack();
+
+    //Assert
+    assertEquals(this.attack, currentAttack);
+}
 
 @Test
 void shouldGetDefense() {
