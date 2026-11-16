@@ -69,8 +69,19 @@ void shouldGetAttack() {
 }
 
 @Test
-void shouldGetCurrentAttack() {
+void shouldgetCurrentAttack() {
+	
+	//Act
+	int currentAttack = bossMonster.getCurrentAttack();
+
+    //Assert
+    assertEquals(this.attack, currentAttack);
+}
+
+@Test
+void shouldGetEnragedAttack() {
     //Act
+	bossMonster.takeDamage(3);
     int currentAttack = bossMonster.getCurrentAttack();
 
     //Assert
