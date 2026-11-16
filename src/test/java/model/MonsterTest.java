@@ -68,5 +68,14 @@ public class MonsterTest {
         assertEquals(this.name, name);
     }
     
+    @Test
+    void shouldGetHealth() {
+        //Act
+        int health = monster.getHealth();
+
+        //Assert
+        assertEquals(this.health, health);
+    }
+    
     
 }
