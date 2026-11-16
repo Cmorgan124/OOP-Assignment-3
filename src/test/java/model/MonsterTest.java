@@ -86,10 +86,10 @@ public class MonsterTest {
     @Test
     void shouldTakeDamage() {
         //Act
-        monster.takeDamage(attack);
+        monster.takeDamage(5);
 
         //Assert
-        assertEquals(0, monster.getHealth());
+        assertEquals(5, monster.getHealth());
     }
     
     @Test
