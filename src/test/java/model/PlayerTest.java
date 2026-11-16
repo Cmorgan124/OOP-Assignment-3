@@ -101,5 +101,20 @@ public class PlayerTest {
         //Assert
         assertEquals(this.currentRoom, currentRoom);
     }
+    
+    @Test 
+    void shouldSetCurrentRoom() {
+        //Arrange
+        Room newRoom = new Room("id", "roomName", "roomDescription");
+        //Act
+        player.setCurrentRoom(newRoom);
+        //Assert
+        assertEquals(newRoom, player.getCurrentRoom());
+    }
+
+    @Test 
+    void shouldThrowExceptionWhenSettingCurrentRoomToNull() {
+        assertThrows(NullPointerException.class, () -> player.setCurrentRoom(null));
+    }
 
 }
