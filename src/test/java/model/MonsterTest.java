@@ -32,7 +32,7 @@ public class MonsterTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenMaxHealthIsNegative() {
+    void shouldThrowExceptionWhenHealthIsNegative() {
         //Act & Assert
         assertThrows(IllegalArgumentException.class,
                 () -> new Monster(name, -1, attack, defense, loot));
