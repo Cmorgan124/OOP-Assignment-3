@@ -22,7 +22,15 @@ public class ItemTest {
         item = new Item(name, description) { };
     }
     
-    
+    @Test
+    void shouldThrowExceptionWhenNameIsNull() {
+        assertThrows(NullPointerException.class, () -> new Item(null, description) { });
+    }
+
+    @Test 
+    void shouldThrowExceptionWhenDescriptionIsNull() {
+        assertThrows(NullPointerException.class, () -> new Item(name, null) { });
+    }
     
     
 }
