@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.example.haunted.model.Armor;
-import com.example.haunted.model.Item;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,6 +17,14 @@ public class ArmorTest {
     @BeforeEach 
     void setUp() {
         armor = new Armor(name, description, defenseBonus);
+    }
+    
+    @Test
+    void shouldGetDefenseBonus() {
+        //Act
+        int defenseBonus = armor.getDefenseBonus();
+        //Assert
+        assertEquals(this.defenseBonus, defenseBonus);
     }
 
 }
