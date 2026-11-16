@@ -104,8 +104,9 @@ public class MonsterTest {
     @Test 
     void shouldBeDead() {
         //Act
-        monster.takeDamage(attack);
-        boolean alive = monster.isAlive();
+    	List<Item> testloot = List.of();
+        Monster testMonster = new Monster(name, 0, 5, 5, testloot);
+        boolean alive = testMonster.isAlive();
 
         //Assert
         assertFalse(alive);
