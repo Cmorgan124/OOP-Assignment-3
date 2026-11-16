@@ -95,4 +95,13 @@ public class MonsterTest {
         assertEquals(this.attack, attack);
     }
     
+    @Test
+    void shouldGetDefense() {
+        //Act
+        int defense = monster.getDefense();
+
+        //Assert
+        assertEquals(this.defense, defense);
+    }
+    
 }
