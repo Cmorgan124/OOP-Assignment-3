@@ -48,4 +48,12 @@ public class ItemTest {
         assertEquals(this.description, description);
     }
     
+    @Test
+    void toStringShouldReturnName() {
+        //Act
+        String result = item.toString();
+        //Assert
+        assertEquals(this.name, result);
+    }
+    
 }
