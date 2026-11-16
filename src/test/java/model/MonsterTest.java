@@ -132,4 +132,13 @@ public class MonsterTest {
         assertFalse(alive);
     }
     
+    @Test
+    void shouldGetLoot() {
+        //Act
+        List<Item> loot = monster.getLoot();
+
+        //Assert
+        assertEquals(this.loot, loot);
+    }
+    
 }
