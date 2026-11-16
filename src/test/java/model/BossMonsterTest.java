@@ -60,6 +60,12 @@ void shouldThrowExceptionWhenLootIsNull() {
             () -> new BossMonster(name, health, attack, defense, null, enragedAttackBonus));
 }
 
+@Test
+void shouldThrowExceptionWhenEnragedAttackBonusIsNegative() {
+    //Act & Assert
+    assertThrows(IllegalArgumentException.class,
+            () -> new BossMonster(name, health, attack, defense, loot, -1));
+}
 
 @Test
 void shouldGetName() {
