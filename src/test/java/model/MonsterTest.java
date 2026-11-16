@@ -86,6 +86,13 @@ public class MonsterTest {
         assertEquals(this.maxHealth, maxHealth);
     }
     
-    
+    @Test
+    void shouldGetAttack() {
+        //Act
+        int attack = monster.getAttack();
+
+        //Assert
+        assertEquals(this.attack, attack);
+    }
     
 }
