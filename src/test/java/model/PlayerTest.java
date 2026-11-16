@@ -127,5 +127,23 @@ public class PlayerTest {
         //Assert
         assertEquals(maxHealth - damage + 10, player.getHealth());
     }
+    
+    @Test
+    void shouldBeAlive() {
+        //Act
+        boolean isAlive = player.isAlive();
+        //Assert
+        assertTrue(isAlive);
+    }
+
+    @Test 
+    void shouldBeDead() {
+        //Arrange
+        player.takeDamage(maxHealth);
+        //Act
+        boolean isAlive = player.isAlive();
+        //Assert
+        assertFalse(isAlive);
+    }
 
 }
