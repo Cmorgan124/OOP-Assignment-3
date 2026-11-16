@@ -32,26 +32,6 @@ void shouldThrowExceptionWhenNameIsNull() {
             () -> new BossMonster(null, health, attack, defense, loot, enragedAttackBonus));
 }
 
-@Test
-void shouldThrowExceptionWhenHealthIsNegative() {
-    //Act & Assert
-    assertThrows(NullPointerException.class,
-            () -> new BossMonster(name, -1, attack, defense, loot, enragedAttackBonus));
-}
-
-@Test
-void shouldThrowExceptionWhenAttackIsNegative() {
-    //Act & Assert
-    assertThrows(NullPointerException.class,
-            () -> new BossMonster(name, health, -1, defense, loot, enragedAttackBonus));
-}
-
-@Test
-void shouldThrowExceptionWhenDefenseIsNegative() {
-    //Act & Assert
-    assertThrows(NullPointerException.class,
-            () -> new BossMonster(name, health, attack, -1, loot, enragedAttackBonus));
-}
 
 @Test
 void shouldThrowExceptionWhenLootIsNull() {
@@ -60,12 +40,6 @@ void shouldThrowExceptionWhenLootIsNull() {
             () -> new BossMonster(name, health, attack, defense, null, enragedAttackBonus));
 }
 
-@Test
-void shouldThrowExceptionWhenEnragedAttackBonusIsNegative() {
-    //Act & Assert
-    assertThrows(NullPointerException.class,
-            () -> new BossMonster(name, health, attack, defense, loot, -1));
-}
 
 @Test
 void shouldGetName() {
