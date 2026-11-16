@@ -169,5 +169,28 @@ public class PlayerTest {
         //Assert
         assertEquals(baseDefense + armor.getDefenseBonus(), defensePower);
     }
+    
+    @Test 
+    void shouldEquipWeapon() {
+        //Arrange
+        Weapon weapon = new Weapon("weaponName", "weaponDescription", 5);
+        player.getInventory().addItem(weapon);
+        //Act
+        player.equipWeapon(weapon);
+        //Assert
+        assertEquals(weapon, player.getEquippedWeapon());
+    }
+
+    @Test
+    void shouldEquipArmor() {
+        //Arrange
+        Armor armor = new Armor("armorName", "armorDescription", 5);
+        player.getInventory().addItem(armor);
+        //Act
+        player.equipArmor(armor);
+        //Assert
+        assertEquals(armor, player.getEquippedArmor());
+    }
+
 
 }
