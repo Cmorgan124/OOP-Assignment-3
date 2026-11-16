@@ -24,3 +24,114 @@ public class BossMonsterTest {
     }
 
 }
+
+@Test 
+void shouldThrowExceptionWhenNameIsNull() {
+    //Act & Assert
+    assertThrows(IllegalArgumentException.class,
+            () -> new BossMonster(null, health, attack, defense, loot, enragedAttackBonus));
+}
+
+@Test
+void shouldThrowExceptionWhenHealthIsNegative() {
+    //Act & Assert
+    assertThrows(IllegalArgumentException.class,
+            () -> new BossMonster(name, -1, attack, defense, loot, enragedAttackBonus));
+}
+
+@Test
+void shouldThrowExceptionWhenAttackIsNegative() {
+    //Act & Assert
+    assertThrows(IllegalArgumentException.class,
+            () -> new BossMonster(name, health, -1, defense, loot, enragedAttackBonus));
+}
+
+@Test
+void shouldThrowExceptionWhenDefenseIsNegative() {
+    //Act & Assert
+    assertThrows(IllegalArgumentException.class,
+            () -> new BossMonster(name, health, attack, -1, loot, enragedAttackBonus));
+}
+
+@Test
+void shouldThrowExceptionWhenLootIsNull() {
+    //Act & Assert
+    assertThrows(IllegalArgumentException.class,
+            () -> new BossMonster(name, health, attack, defense, null, enragedAttackBonus));
+}
+
+
+@Test
+void shouldGetName() {
+    //Act
+    String name = bossMonster.getName();
+
+    //Assert
+    assertEquals(this.name, name);
+}
+
+@Test
+void shouldGetHealth() {
+    //Act
+    int health = bossMonster.getHealth();
+
+    //Assert
+    assertEquals(this.health, health);
+}
+
+@Test
+void shouldGetAttack() {
+    //Act
+    int attack = bossMonster.getAttack();
+
+    //Assert
+    assertEquals(this.attack, attack);
+}
+
+
+@Test
+void shouldGetDefense() {
+    //Act
+    int defense = bossMonster.getDefense();
+
+    //Assert
+    assertEquals(this.defense, defense);
+}
+
+@Test
+void shouldTakeDamage() {
+    //Act
+    bossMonster.takeDamage(attack);
+
+    //Assert
+    assertEquals(0, bossMonster.getHealth());
+}
+
+@Test
+void shouldBeAlive() {
+    //Act
+    boolean alive = bossMonster.isAlive();
+
+    //Assert
+    assertTrue(alive);
+}
+
+@Test 
+void shouldBeDead() {
+    //Act
+    bossMonster.takeDamage(attack);
+    boolean alive = bossMonster.isAlive();
+
+    //Assert
+    assertFalse(alive);
+}
+
+@Test
+void shouldGetLoot() {
+    //Act
+    List<Item> loot = bossMonster.getLoot();
+
+    //Assert
+    assertEquals(this.loot, loot);
+}
+}
