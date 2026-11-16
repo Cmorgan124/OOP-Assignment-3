@@ -23,7 +23,7 @@ public class BossMonsterTest {
         bossMonster = new BossMonster(name, health, attack, defense, loot, enragedAttackBonus);
     }
 
-}
+
 
 @Test 
 void shouldThrowExceptionWhenNameIsNull() {
