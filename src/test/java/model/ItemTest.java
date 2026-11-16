@@ -32,5 +32,12 @@ public class ItemTest {
         assertThrows(NullPointerException.class, () -> new Item(name, null) { });
     }
     
+    @Test 
+    void shouldGetName() {
+        //Act 
+        String name = item.getName();
+        //Assert
+        assertEquals(this.name, name);
+    }
     
 }
