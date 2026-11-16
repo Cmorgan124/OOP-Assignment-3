@@ -13,4 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ItemTest {
 
+	private Item item;
+    private final String name = "name";
+    private final String description = "description";
+
 }
