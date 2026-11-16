@@ -19,6 +19,9 @@ public class MonsterTest {
     private final int defense = 5;
     private final List<Item> loot = List.of();
     
-    
+    @BeforeEach
+    void setUp() {
+        monster = new Monster(name, maxHealth, attack, defense, loot);
+    }
     
 }
