@@ -113,4 +113,23 @@ public class MonsterTest {
         assertEquals(0, monster.getHealth());
     }
     
+    @Test
+    void shouldBeAlive() {
+        //Act
+        boolean alive = monster.isAlive();
+
+        //Assert
+        assertTrue(alive);
+    }
+    
+    @Test 
+    void shouldBeDead() {
+        //Act
+        monster.takeDamage(attack);
+        boolean alive = monster.isAlive();
+
+        //Assert
+        assertFalse(alive);
+    }
+    
 }
