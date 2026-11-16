@@ -18,4 +18,11 @@ public class WeaponTest {
         weapon = new Weapon(name, description, attackBonus);
     }
 
+    @Test
+    void shouldGetAttackBonus() {
+       //Act
+       int attackBonus = weapon.getAttackBonus();
+       //Assert
+       assertEquals(this.attackBonus, attackBonus);
+    }
 }
