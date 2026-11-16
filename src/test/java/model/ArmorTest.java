@@ -14,5 +14,10 @@ public class ArmorTest {
     private final String name = "name";
     private final String description = "description";
     private final int defenseBonus = 5;
+    
+    @BeforeEach 
+    void setUp() {
+        armor = new Armor(name, description, defenseBonus);
+    }
 
 }
