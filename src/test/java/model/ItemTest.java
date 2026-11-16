@@ -40,4 +40,12 @@ public class ItemTest {
         assertEquals(this.name, name);
     }
     
+    @Test 
+    void shouldGetDescription() {
+        //Act
+        String description = item.getDescription();
+        //Assert
+        assertEquals(this.description, description);
+    }
+    
 }
