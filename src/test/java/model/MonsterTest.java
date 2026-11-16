@@ -58,4 +58,15 @@ public class MonsterTest {
         assertThrows(IllegalArgumentException.class,
                 () -> new Monster(name, maxHealth, attack, defense, null));
     }
+    
+    @Test
+    void shouldGetName() {
+        //Act
+        String name = monster.getName();
+
+        //Assert
+        assertEquals(this.name, name);
+    }
+    
+    
 }
