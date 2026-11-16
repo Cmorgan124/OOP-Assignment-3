@@ -17,4 +17,12 @@ public class ItemTest {
     private final String name = "name";
     private final String description = "description";
 
+    @BeforeEach 
+    void setUp() {
+        item = new Item(name, description) { };
+    }
+    
+    
+    
+    
 }
