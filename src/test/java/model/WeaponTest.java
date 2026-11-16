@@ -8,5 +8,9 @@ import com.example.haunted.model.Weapon;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WeaponTest {
+    private Weapon weapon;
+    private final String name = "name";
+    private final String description = "description";
+    private final int attackBonus = 5;
 
 }
