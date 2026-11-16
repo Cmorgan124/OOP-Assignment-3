@@ -24,4 +24,38 @@ public class MonsterTest {
         monster = new Monster(name, maxHealth, attack, defense, loot);
     }
     
+    @Test 
+    void shouldThrowExceptionWhenNameIsNull() {
+        //Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new Monster(null, maxHealth, attack, defense, loot));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenMaxHealthIsNegative() {
+        //Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new Monster(name, -1, attack, defense, loot));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenAttackIsNegative() {
+        //Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new Monster(name, maxHealth, -1, defense, loot));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenDefenseIsNegative() {
+        //Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new Monster(name, maxHealth, attack, -1, loot));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenLootIsNull() {
+        //Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new Monster(name, maxHealth, attack, defense, null));
+    }
 }
