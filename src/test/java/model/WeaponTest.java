@@ -12,5 +12,10 @@ public class WeaponTest {
     private final String name = "name";
     private final String description = "description";
     private final int attackBonus = 5;
+    
+    @BeforeEach 
+    void setUp() {
+        weapon = new Weapon(name, description, attackBonus);
+    }
 
 }
