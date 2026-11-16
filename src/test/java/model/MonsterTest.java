@@ -11,4 +11,14 @@ import com.example.haunted.model.Monster;
 
 public class MonsterTest {
 
+	private Monster monster;
+    private final String name = "name";
+    private final int maxHealth = 10;
+    private int health = 5;
+    private final int attack = 5;
+    private final int defense = 5;
+    private final List<Item> loot = List.of();
+    
+    
+    
 }
