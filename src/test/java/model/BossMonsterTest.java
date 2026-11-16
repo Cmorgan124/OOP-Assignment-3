@@ -82,10 +82,10 @@ void shouldgetCurrentAttack() {
 void shouldGetEnragedAttack() {
     //Act
 	bossMonster.takeDamage(3);
-    int currentAttack = bossMonster.getCurrentAttack();
+    int enragedAttack = bossMonster.getCurrentAttack();
 
     //Assert
-    assertEquals(this.attack, currentAttack);
+    assertEquals(this.attack + this.enragedAttackBonus, enragedAttack);
 }
 
 @Test
