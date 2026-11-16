@@ -29,5 +29,77 @@ public class PlayerTest {
         // Initialize the player object before each test
         player = new Player(name, maxHealth, baseAttack, baseDefense, inventory);
     }
+    
+    @Test 
+    void shouldGetName() {
+        //Act 
+        String name = player.getName();
+        //Assert
+        assertEquals(this.name, name);
+    }
+
+    @Test 
+    void shouldGetHealth() {
+        //Act
+        int health = player.getHealth();
+        //Assert
+        assertEquals(this.health, health);
+    }
+
+    @Test
+    void shouldGetMaxHealth() {
+        //Act
+        int maxHealth = player.getMaxHealth();
+        //Assert
+        assertEquals(this.maxHealth, maxHealth);
+    }
+
+    @Test
+    void shouldGetBaseAttack() {
+        //Act
+        int baseAttack = player.getBaseAttack();
+        //Assert
+        assertEquals(this.baseAttack, baseAttack);
+    }
+
+    @Test
+    void shouldGetBaseDefense() {
+        //Act
+        int baseDefense = player.getBaseDefense();
+        //Assert
+        assertEquals(this.baseDefense, baseDefense);
+    }
+
+    @Test 
+    void shouldGetInventory() {
+        //Act
+        Inventory inventory = player.getInventory();
+        //Assert
+        assertEquals(this.inventory, inventory);
+    }
+
+    @Test 
+    void shouldGetEquippedWeapon() {
+        //Act
+        Weapon equippedWeapon = player.getEquippedWeapon();
+        //Assert
+        assertEquals(this.equippedWeapon, equippedWeapon);
+    }
+
+    @Test 
+    void shouldGetEquippedArmor() {
+        //Act
+        Armor equippedArmor = player.getEquippedArmor();
+        //Assert
+        assertEquals(this.equippedArmor, equippedArmor);
+    }
+
+    @Test
+    void shouldGetCurrentRoom() {
+        //Act
+        Room currentRoom = player.getCurrentRoom();
+        //Assert
+        assertEquals(this.currentRoom, currentRoom);
+    }
 
 }
