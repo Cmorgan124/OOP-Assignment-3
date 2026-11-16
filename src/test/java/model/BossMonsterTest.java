@@ -18,6 +18,9 @@ public class BossMonsterTest {
     private final List<Item> loot = List.of();
     private final int enragedAttackBonus = 5;
     
-    
+    @BeforeEach
+    void setUp() {
+        bossMonster = new BossMonster(name, health, attack, defense, loot, enragedAttackBonus);
+    }
 
 }
