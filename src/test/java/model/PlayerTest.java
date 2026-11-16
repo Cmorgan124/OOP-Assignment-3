@@ -116,5 +116,16 @@ public class PlayerTest {
     void shouldThrowExceptionWhenSettingCurrentRoomToNull() {
         assertThrows(NullPointerException.class, () -> player.setCurrentRoom(null));
     }
+    
+    @Test 
+    void shouldHealPlayer() {
+        //Arrange
+        int damage = 20;
+        player.takeDamage(damage);
+        //Act
+        player.heal(10);
+        //Assert
+        assertEquals(maxHealth - damage + 10, player.getHealth());
+    }
 
 }
