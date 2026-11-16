@@ -31,6 +31,20 @@ public class PlayerTest {
     }
     
     @Test 
+    void shouldThrowExceptionWhenNameIsNull() {
+        //Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new Player(null, maxHealth, baseAttack, baseDefense, inventory));
+    }
+
+    @Test 
+    void shouldThrowExceptionWhenInventoryIsNull() {
+        //Act & Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new Player(name, maxHealth, baseAttack, baseDefense, null));
+    }
+    
+    @Test 
     void shouldGetName() {
         //Act 
         String name = player.getName();
