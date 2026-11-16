@@ -33,14 +33,14 @@ public class PlayerTest {
     @Test 
     void shouldThrowExceptionWhenNameIsNull() {
         //Act & Assert
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> new Player(null, maxHealth, baseAttack, baseDefense, inventory));
     }
 
     @Test 
     void shouldThrowExceptionWhenInventoryIsNull() {
         //Act & Assert
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NullPointerException.class,
                 () -> new Player(name, maxHealth, baseAttack, baseDefense, null));
     }
     
