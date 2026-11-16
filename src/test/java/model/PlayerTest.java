@@ -23,5 +23,11 @@ public class PlayerTest {
     private Weapon equippedWeapon;
     private Armor equippedArmor;
     private Room currentRoom;
+    
+    @BeforeEach
+    void setUp() {
+        // Initialize the player object before each test
+        player = new Player(name, maxHealth, baseAttack, baseDefense, inventory);
+    }
 
 }
