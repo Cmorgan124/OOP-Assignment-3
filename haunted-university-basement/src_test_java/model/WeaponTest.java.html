@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>WeaponTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">haunted-university-basement (Nov 16, 2026 7:19:00 PM)</a> &gt; <a href="../../index.html" class="el_group">haunted-university-basement</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">WeaponTest.java</span></div><h1>WeaponTest.java</h1><pre class="source lang-java linenums">package model;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.example.haunted.model.Weapon;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+<span class="nc" id="L10">public class WeaponTest {</span>
+    private Weapon weapon;
+<span class="nc" id="L12">    private final String name = &quot;name&quot;;</span>
+<span class="nc" id="L13">    private final String description = &quot;description&quot;;</span>
+<span class="nc" id="L14">    private final int attackBonus = 5;</span>
+    
+    @BeforeEach 
+    void setUp() {
+<span class="nc" id="L18">        weapon = new Weapon(name, description, attackBonus);</span>
+<span class="nc" id="L19">    }</span>
+
+    @Test
+    void shouldGetAttackBonus() {
+       //Act
+<span class="nc" id="L24">       int attackBonus = weapon.getAttackBonus();</span>
+       //Assert
+<span class="nc" id="L26">       assertEquals(this.attackBonus, attackBonus);</span>
+<span class="nc" id="L27">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>haunted-university-basement (Nov 16, 2026 7:19:00 PM)</div></body></html>

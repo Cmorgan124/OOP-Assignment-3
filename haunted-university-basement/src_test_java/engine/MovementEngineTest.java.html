@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>MovementEngineTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">haunted-university-basement (Nov 16, 2026 7:19:00 PM)</a> &gt; <a href="../../index.html" class="el_group">haunted-university-basement</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">engine</a> &gt; <span class="el_source">MovementEngineTest.java</span></div><h1>MovementEngineTest.java</h1><pre class="source lang-java linenums">package engine;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import com.example.haunted.engine.MovementEngine;
+import com.example.haunted.events.MoveResult;
+import com.example.haunted.model.Direction;
+import com.example.haunted.model.Inventory;
+import com.example.haunted.model.Player;
+import com.example.haunted.model.Room;
+import com.example.haunted.model.Trap;
+import com.example.haunted.model.TrapType;
+import com.example.haunted.rules.TrapResolver;
+
+<span class="fc" id="L17">class MovementEngineTest {</span>
+
+	MovementEngine movementEngine;
+	Player player;
+	Room roomA;
+	Room roomB;
+	
+	@BeforeEach
+	void setup() {
+<span class="fc" id="L26">		movementEngine = new MovementEngine(new TrapResolver());</span>
+<span class="fc" id="L27">		player = new Player(&quot;MTestHero&quot;, 50, 10, 5, new Inventory(8));</span>
+		
+<span class="fc" id="L29">		roomA = new Room(&quot;Room A&quot;, &quot;Start room&quot;, &quot;Room that MTestHero starts in.&quot;);</span>
+<span class="fc" id="L30">		roomB = new Room(&quot;Room B&quot;, &quot;Next room&quot;, &quot;Room that MTestHero goes to.&quot;);</span>
+		
+<span class="fc" id="L32">		roomA.connect(Direction.NORTH, roomB);</span>
+<span class="fc" id="L33">		player.setCurrentRoom(roomA);</span>
+<span class="fc" id="L34">	}</span>
+	
+	@Test
+	void testSuccessfulMovement() {
+<span class="fc" id="L38">		MoveResult result = movementEngine.move(player, Direction.NORTH);</span>
+<span class="fc" id="L39">		assertTrue(result.isSuccess(), &quot;Movement should be successful.&quot;);</span>
+<span class="fc" id="L40">		assertEquals(result.getMessage(), &quot;Moved to Next room.&quot;,&quot;Movement result should have a message.&quot;);</span>
+<span class="fc" id="L41">		assertEquals(roomB, player.getCurrentRoom(), &quot;Player should be in roomB.&quot;);</span>
+<span class="fc" id="L42">		assertFalse(result.isTrapTriggered(), &quot;Trap should not be triggered.&quot;);</span>
+<span class="fc" id="L43">	}</span>
+
+	@Test
+	void testInvalidMovement() {
+<span class="fc" id="L47">		MoveResult result = movementEngine.move(player, Direction.SOUTH);</span>
+<span class="fc" id="L48">		assertFalse(result.isSuccess(), &quot;Movement should be invalid.&quot;);</span>
+<span class="fc" id="L49">		assertEquals(&quot;There is no room in that direction.&quot;, result.getMessage());</span>
+<span class="fc" id="L50">		assertEquals(roomA, player.getCurrentRoom(), &quot;Player shoud be in roomA still.&quot;);</span>
+<span class="fc" id="L51">	}</span>
+	
+	@Test
+	void testMovementLockedRoomNoKey(){
+<span class="fc" id="L55">		roomB.setLocked(true, &quot;Test key&quot;);</span>
+<span class="fc" id="L56">		MoveResult result = movementEngine.move(player, Direction.NORTH);</span>
+		
+<span class="fc" id="L58">		assertFalse(result.isSuccess(), &quot;Movement should fail without key.&quot;);</span>
+<span class="fc" id="L59">		assertEquals(&quot;The room is locked.&quot;, result.getMessage());</span>
+<span class="fc" id="L60">		assertEquals(roomA, player.getCurrentRoom(), &quot;Player should stay in Room A when locked.&quot;);</span>
+<span class="fc" id="L61">	}</span>
+	
+	@Test
+	void testMovementLockedRoomHasKey() {
+<span class="fc" id="L65">		roomB.setLocked(true, &quot;Test key&quot;);</span>
+<span class="fc" id="L66">		boolean unlocked = roomB.unlock(&quot;Test key&quot;);</span>
+		
+<span class="fc" id="L68">		assertTrue(unlocked, &quot;Should successfully unlock the room.&quot;);</span>
+		
+<span class="fc" id="L70">		MoveResult result = movementEngine.move(player, Direction.NORTH);</span>
+		
+<span class="fc" id="L72">		assertTrue(result.isSuccess(), &quot;Should move to roomB.&quot;);</span>
+<span class="fc" id="L73">		assertEquals(roomB, player.getCurrentRoom(), &quot;Should be in roomB&quot;);</span>
+<span class="fc" id="L74">	}</span>
+	
+	@Test
+	void testArmedTrap(){
+<span class="fc" id="L78">		Trap testTrap = new Trap(&quot;testTrap&quot;, TrapType.STEAM, 8, true,true);</span>
+<span class="fc" id="L79">		roomB.setTrap(testTrap);</span>
+<span class="fc" id="L80">		int initialHealth = player.getHealth();</span>
+<span class="fc" id="L81">		MoveResult result = movementEngine.move(player, Direction.NORTH);</span>
+		
+<span class="fc" id="L83">		assertTrue(result.isSuccess(), &quot;Should still complete move when trap is triggered.&quot;);</span>
+<span class="fc" id="L84">		assertTrue(result.isTrapTriggered(), &quot;Trap should be triggered.&quot;);</span>
+<span class="fc" id="L85">		assertEquals(result.getTrapDamage(), 8, &quot;Trap should've done 8 damage.&quot;);</span>
+<span class="fc" id="L86">		assertEquals(initialHealth - 8, player.getHealth(), &quot;Trap should've done 8 damage to player.&quot;);</span>
+<span class="fc" id="L87">		assertEquals(roomB, player.getCurrentRoom(), &quot;Player should be in roomB.&quot;);</span>
+<span class="fc" id="L88">		assertFalse(testTrap.isArmed(), &quot;Should be disarmed since it is a one-time trap.&quot;);</span>
+<span class="fc" id="L89">	}</span>
+	
+	@Test
+	void testDisarmedTrap() {
+<span class="fc" id="L93">		Trap testTrap = new Trap(&quot;testTrap&quot;, TrapType.STEAM, 8, false,true);</span>
+<span class="fc" id="L94">		roomB.setTrap(testTrap);</span>
+<span class="fc" id="L95">		int initialHealth = player.getHealth();</span>
+<span class="fc" id="L96">		MoveResult result = movementEngine.move(player, Direction.NORTH);</span>
+		
+<span class="fc" id="L98">		assertTrue(result.isSuccess(), &quot;Should've moved rooms.&quot;);</span>
+<span class="fc" id="L99">		assertFalse(result.isTrapTriggered(), &quot;Trap shouldn't have been triggered.&quot;);</span>
+<span class="fc" id="L100">		assertEquals(initialHealth, player.getHealth(), &quot;Player should still be at full health.&quot;);</span>
+<span class="fc" id="L101">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>haunted-university-basement (Nov 16, 2026 7:19:00 PM)</div></body></html>

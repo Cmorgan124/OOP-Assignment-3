@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>TrapTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">haunted-university-basement (Nov 16, 2026 7:19:00 PM)</a> &gt; <a href="../../index.html" class="el_group">haunted-university-basement</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">TrapTest.java</span></div><h1>TrapTest.java</h1><pre class="source lang-java linenums">package model;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import com.example.haunted.model.Trap;
+import com.example.haunted.model.TrapType;
+
+<span class="fc" id="L10">public class TrapTest {</span>
+	//Arrange
+    private Trap trap;
+<span class="fc" id="L13">    private TrapType type = TrapType.ELECTRIC;</span>
+<span class="fc" id="L14">    private final int damage = 10;</span>
+<span class="fc" id="L15">    private final boolean oneTimeTrigger = true;</span>
+<span class="fc" id="L16">    private boolean armed = true;</span>
+    
+    @BeforeEach
+    void setUp() {
+<span class="fc" id="L20">        trap = new Trap(&quot;name&quot;, type, damage, armed, oneTimeTrigger);</span>
+<span class="fc" id="L21">    }</span>
+    
+ 
+    @Test
+    void shouldInitializeTrap() {
+
+        //Act
+<span class="fc" id="L28">        Trap testTrap = new Trap(&quot;Poison&quot;, TrapType.STEAM, 2, false, false);</span>
+
+        //Assert
+<span class="fc" id="L31">        assertEquals(&quot;Poison&quot;, testTrap.getName());</span>
+<span class="fc" id="L32">        assertEquals(TrapType.STEAM, testTrap.getType());</span>
+<span class="fc" id="L33">        assertEquals(2, testTrap.getDamage());</span>
+<span class="fc" id="L34">        assertFalse(testTrap.isOneTimeTrigger());</span>
+<span class="fc" id="L35">        assertFalse(testTrap.isArmed());</span>
+<span class="fc" id="L36">    }</span>
+
+    @Test
+    void shouldThrowExceptionWhenNameIsNull(){
+
+        //Assert
+<span class="pc" id="L42">        assertThrows(NullPointerException.class, () -&gt; new Trap(null, TrapType.STEAM, 2, false, false));</span>
+<span class="fc" id="L43">    }</span>
+
+    
+    @Test
+    void shouldThrowExceptionWhenTypeIsNull(){
+
+        //Assert
+<span class="pc" id="L50">        assertThrows(NullPointerException.class, () -&gt; new Trap(&quot;name&quot;, null, 2, false, false));</span>
+<span class="fc" id="L51">    }</span>
+    
+    @Test
+    void shouldGetName() {
+
+        //Act
+<span class="fc" id="L57">        String name = trap.getName();</span>
+        //Assert
+<span class="fc" id="L59">        assertEquals(&quot;name&quot;, name);</span>
+<span class="fc" id="L60">    }</span>
+    
+
+    @Test
+    void shouldGetType() {
+
+        //Act
+<span class="fc" id="L67">        TrapType testType = trap.getType();</span>
+        //Assert
+<span class="fc" id="L69">        assertEquals(type, testType);</span>
+<span class="fc" id="L70">    }</span>
+    
+    @Test
+    void shouldGetDamage() {
+
+        //Act
+<span class="fc" id="L76">        int actualDamage = trap.getDamage();</span>
+
+        //Assert
+<span class="fc" id="L79">        assertEquals(damage, actualDamage);</span>
+<span class="fc" id="L80">    }</span>
+    
+    @Test
+    void shouldArmTrap() {
+
+        //Act
+<span class="fc" id="L86">        boolean actualArmed = trap.isArmed();</span>
+
+        //Assert
+<span class="fc" id="L89">        assertEquals(armed, actualArmed);</span>
+<span class="fc" id="L90">    }</span>
+    
+    @Test
+    void shouldActivateOneTimeTrigger() {
+
+        //Act
+<span class="fc" id="L96">        boolean actualOneTimeTrigger = trap.isOneTimeTrigger();</span>
+
+        //Assert
+<span class="fc" id="L99">        assertEquals(oneTimeTrigger, actualOneTimeTrigger);</span>
+<span class="fc" id="L100">    }</span>
+    
+    @Test
+    void shouldDisarm() {
+
+        //Act
+<span class="fc" id="L106">        trap.disarm();</span>
+
+        //Assert
+<span class="fc" id="L109">        assertFalse(trap.isArmed());</span>
+<span class="fc" id="L110">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>haunted-university-basement (Nov 16, 2026 7:19:00 PM)</div></body></html>

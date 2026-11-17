@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>DungeonFactoryTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">haunted-university-basement (Nov 16, 2026 7:19:00 PM)</a> &gt; <a href="../../index.html" class="el_group">haunted-university-basement</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">config</a> &gt; <span class="el_source">DungeonFactoryTest.java</span></div><h1>DungeonFactoryTest.java</h1><pre class="source lang-java linenums">package config;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.example.haunted.config.DungeonFactory;
+import com.example.haunted.engine.GameEngine;
+import com.example.haunted.model.Armor;
+import com.example.haunted.model.BossMonster;
+import com.example.haunted.model.Direction;
+import com.example.haunted.model.Monster;
+import com.example.haunted.model.Player;
+import com.example.haunted.model.Potion;
+import com.example.haunted.model.Room;
+import com.example.haunted.model.Trap;
+import com.example.haunted.model.TrapType;
+import com.example.haunted.model.Weapon;
+
+<span class="nc" id="L21">class DungeonFactoryTest {</span>
+
+	private GameEngine game;
+    private Room stairwell;
+    private Room lectureHall;
+    private Room labStorage;
+    private Room brokenElevator;
+    private Room serverCloset;
+    private Room examArchive;
+    private Room deanVault;
+    private Room finalChamber;
+
+    @BeforeEach
+    void setUp() {
+<span class="nc" id="L35">        game = DungeonFactory.createGame();</span>
+<span class="nc" id="L36">        stairwell = game.getCurrentRoom();</span>
+<span class="nc" id="L37">        lectureHall = stairwell.getExit(Direction.EAST);</span>
+<span class="nc" id="L38">        labStorage = lectureHall.getExit(Direction.EAST);</span>
+<span class="nc" id="L39">        brokenElevator = lectureHall.getExit(Direction.SOUTH);</span>
+<span class="nc" id="L40">        examArchive = lectureHall.getExit(Direction.NORTH);</span>
+<span class="nc" id="L41">        serverCloset = labStorage.getExit(Direction.NORTH);</span>
+<span class="nc" id="L42">        deanVault = examArchive.getExit(Direction.EAST);</span>
+<span class="nc" id="L43">        finalChamber = deanVault.getExit(Direction.NORTH);</span>
+<span class="nc" id="L44">    }</span>
+
+    @Test
+    void testPlayerAndQuestInitialization() {
+<span class="nc" id="L48">        Player player = game.getPlayer();</span>
+<span class="nc" id="L49">        assertNotNull(player);</span>
+<span class="nc" id="L50">        assertEquals(&quot;Student Explorer&quot;, player.getName());</span>
+<span class="nc" id="L51">        assertEquals(50, player.getMaxHealth());</span>
+<span class="nc" id="L52">        assertEquals(50, player.getHealth());</span>
+<span class="nc" id="L53">        assertEquals(7, player.getBaseAttack());</span>
+<span class="nc" id="L54">        assertEquals(2, player.getBaseDefense());</span>
+<span class="nc" id="L55">        assertEquals(8, player.getInventory().getCapacity());</span>
+
+<span class="nc" id="L57">        assertNotNull(game.getQuest());</span>
+<span class="nc" id="L58">        assertEquals(&quot;Escape the Basement&quot;, game.getQuest().getName());</span>
+<span class="nc" id="L59">        assertEquals(&quot;Recover the Lost Gradebook and defeat the Final Exam Phantom.&quot;, game.getQuest().getDescription());</span>
+<span class="nc" id="L60">        assertFalse(game.isGameOver());</span>
+<span class="nc" id="L61">        assertFalse(game.isGameWon());</span>
+<span class="nc" id="L62">    }</span>
+
+    @Test
+    void testAllRoomMetadataAndConnections() {
+<span class="nc" id="L66">        assertEquals(&quot;stairwell&quot;, stairwell.getId());</span>
+<span class="nc" id="L67">        assertEquals(&quot;Maintenance Stairwell&quot;, stairwell.getName());</span>
+<span class="nc" id="L68">        assertEquals(&quot;The flickering stairwell leading into the basement.&quot;, stairwell.getDescription());</span>
+
+<span class="nc" id="L70">        assertEquals(&quot;lectureHall&quot;, lectureHall.getId());</span>
+<span class="nc" id="L71">        assertEquals(&quot;Abandoned Lecture Hall&quot;, lectureHall.getName());</span>
+<span class="nc" id="L72">        assertEquals(&quot;Dusty desks and a broken projector.&quot;, lectureHall.getDescription());</span>
+
+<span class="nc" id="L74">        assertEquals(&quot;labStorage&quot;, labStorage.getId());</span>
+<span class="nc" id="L75">        assertEquals(&quot;Lab Storage&quot;, labStorage.getName());</span>
+<span class="nc" id="L76">        assertEquals(&quot;Shelves of outdated hardware and chemicals.&quot;, labStorage.getDescription());</span>
+
+<span class="nc" id="L78">        assertEquals(&quot;brokenElevator&quot;, brokenElevator.getId());</span>
+<span class="nc" id="L79">        assertEquals(&quot;Broken Elevator&quot;, brokenElevator.getName());</span>
+<span class="nc" id="L80">        assertEquals(&quot;The elevator doors hang over a dark shaft.&quot;, brokenElevator.getDescription());</span>
+
+<span class="nc" id="L82">        assertEquals(&quot;serverCloset&quot;, serverCloset.getId());</span>
+<span class="nc" id="L83">        assertEquals(&quot;Server Closet&quot;, serverCloset.getName());</span>
+<span class="nc" id="L84">        assertEquals(&quot;A warm humming room full of blinking servers.&quot;, serverCloset.getDescription());</span>
+
+<span class="nc" id="L86">        assertEquals(&quot;examArchive&quot;, examArchive.getId());</span>
+<span class="nc" id="L87">        assertEquals(&quot;Exam Archive&quot;, examArchive.getName());</span>
+<span class="nc" id="L88">        assertEquals(&quot;Cabinets of old exams and paperwork.&quot;, examArchive.getDescription());</span>
+
+<span class="nc" id="L90">        assertEquals(&quot;deanVault&quot;, deanVault.getId());</span>
+<span class="nc" id="L91">        assertEquals(&quot;Dean Vault&quot;, deanVault.getName());</span>
+<span class="nc" id="L92">        assertEquals(&quot;A hidden chamber guarded by university secrets.&quot;, deanVault.getDescription());</span>
+
+<span class="nc" id="L94">        assertEquals(&quot;finalChamber&quot;, finalChamber.getId());</span>
+<span class="nc" id="L95">        assertEquals(&quot;Final Chamber&quot;, finalChamber.getName());</span>
+<span class="nc" id="L96">        assertEquals(&quot;A spectral exam hall where the boss waits.&quot;, finalChamber.getDescription());</span>
+
+<span class="nc" id="L98">        assertEquals(stairwell, lectureHall.getExit(Direction.WEST));</span>
+<span class="nc" id="L99">        assertEquals(lectureHall, labStorage.getExit(Direction.WEST));</span>
+<span class="nc" id="L100">        assertEquals(lectureHall, brokenElevator.getExit(Direction.NORTH));</span>
+<span class="nc" id="L101">        assertEquals(labStorage, serverCloset.getExit(Direction.SOUTH));</span>
+<span class="nc" id="L102">        assertEquals(deanVault, serverCloset.getExit(Direction.EAST));</span>
+<span class="nc" id="L103">        assertEquals(lectureHall, examArchive.getExit(Direction.SOUTH));</span>
+<span class="nc" id="L104">        assertEquals(examArchive, deanVault.getExit(Direction.WEST));</span>
+<span class="nc" id="L105">        assertEquals(serverCloset, deanVault.getExit(Direction.SOUTH));</span>
+<span class="nc" id="L106">        assertEquals(deanVault, finalChamber.getExit(Direction.SOUTH));</span>
+<span class="nc" id="L107">    }</span>
+
+    @Test
+    void testLocksAndTraps() {
+<span class="nc" id="L111">    	Trap trap = brokenElevator.getTrap();</span>
+    	
+<span class="nc" id="L113">        assertFalse(stairwell.isLocked());</span>
+<span class="nc" id="L114">        assertFalse(lectureHall.isLocked());</span>
+<span class="nc" id="L115">        assertTrue(examArchive.isLocked());</span>
+<span class="nc" id="L116">        assertEquals(&quot;Archive Key&quot;, examArchive.getRequiredKeyName());</span>
+<span class="nc" id="L117">        assertTrue(finalChamber.isLocked());</span>
+<span class="nc" id="L118">        assertEquals(&quot;Vault Key&quot;, finalChamber.getRequiredKeyName());</span>
+
+<span class="nc" id="L120">        assertNotNull(trap);</span>
+<span class="nc" id="L121">        assertEquals(&quot;Loose Wires Trap&quot;, trap.getName());</span>
+<span class="nc" id="L122">        assertEquals(TrapType.ELECTRIC, trap.getType());</span>
+<span class="nc" id="L123">        assertEquals(8, trap.getDamage());</span>
+<span class="nc" id="L124">        assertTrue(trap.isArmed());</span>
+<span class="nc" id="L125">        assertTrue(trap.isOneTimeTrigger());</span>
+<span class="nc" id="L126">    }</span>
+
+    @Test
+    void testAllRoomItems() {
+<span class="nc" id="L130">        Potion coffee = (Potion) lectureHall.findItem(&quot;Coffee Potion&quot;).orElseThrow();</span>
+<span class="nc" id="L131">        Armor shield = (Armor) labStorage.findItem(&quot;Calculator Shield&quot;).orElseThrow();</span>
+<span class="nc" id="L132">        Weapon stapler = (Weapon) serverCloset.findItem(&quot;Stapler of Justice&quot;).orElseThrow();</span>
+        
+<span class="nc" id="L134">        assertEquals(&quot;A suspiciously warm cup of coffee.&quot;, coffee.getDescription());</span>
+<span class="nc" id="L135">        assertEquals(15, coffee.getHealingAmount());</span>
+<span class="nc" id="L136">        assertEquals(&quot;Opens the Exam Archive.&quot;, labStorage.findItem(&quot;Archive Key&quot;).orElseThrow().getDescription());</span>
+<span class="nc" id="L137">        assertEquals(&quot;A battered calculator used as a shield.&quot;, shield.getDescription());</span>
+<span class="nc" id="L138">        assertEquals(3, shield.getDefenseBonus());</span>
+<span class="nc" id="L139">        assertEquals(&quot;A heavy-duty stapler with righteous force.&quot;, stapler.getDescription());</span>
+<span class="nc" id="L140">        assertEquals(4, stapler.getAttackBonus());</span>
+<span class="nc" id="L141">        assertEquals(&quot;The legendary missing gradebook.&quot;, examArchive.findItem(&quot;Lost Gradebook&quot;).orElseThrow().getDescription());</span>
+<span class="nc" id="L142">        assertEquals(&quot;Opens the Final Chamber.&quot;, deanVault.findItem(&quot;Vault Key&quot;).orElseThrow().getDescription());</span>
+<span class="nc" id="L143">    }</span>
+
+    @Test
+    void testAllRoomMonstersAndDrops() {
+<span class="nc" id="L147">        Monster ta = lectureHall.findMonster(&quot;Sleep-Deprived TA&quot;).orElseThrow();</span>
+<span class="nc" id="L148">        Potion taDrop = (Potion) ta.getLoot().get(0);</span>
+        
+<span class="nc" id="L150">        assertEquals(18, ta.getMaxHealth());</span>
+<span class="nc" id="L151">        assertEquals(6, ta.getAttack());</span>
+<span class="nc" id="L152">        assertEquals(1, ta.getDefense());</span>
+<span class="nc" id="L153">        assertEquals(1, ta.getLoot().size());</span>
+<span class="nc" id="L154">        assertEquals(&quot;Coffee Potion&quot;, taDrop.getName());</span>
+<span class="nc" id="L155">        assertEquals(&quot;A backup coffee drop.&quot;, taDrop.getDescription());</span>
+<span class="nc" id="L156">        assertEquals(15, taDrop.getHealingAmount());</span>
+
+<span class="nc" id="L158">        Monster golem = serverCloset.findMonster(&quot;Spreadsheet Golem&quot;).orElseThrow();</span>
+<span class="nc" id="L159">        Weapon golemDrop = (Weapon) golem.getLoot().get(0);</span>
+        
+<span class="nc" id="L161">        assertEquals(28, golem.getMaxHealth());</span>
+<span class="nc" id="L162">        assertEquals(7, golem.getAttack());</span>
+<span class="nc" id="L163">        assertEquals(4, golem.getDefense());</span>
+<span class="nc" id="L164">        assertEquals(1, golem.getLoot().size());</span>
+<span class="nc" id="L165">        assertEquals(&quot;Dry Erase Sword&quot;, golemDrop.getName());</span>
+<span class="nc" id="L166">        assertEquals(&quot;An improvised marker tray blade.&quot;, golemDrop.getDescription());</span>
+<span class="nc" id="L167">        assertEquals(6, golemDrop.getAttackBonus());</span>
+
+<span class="nc" id="L169">        Monster ghost = examArchive.findMonster(&quot;Plagiarism Ghost&quot;).orElseThrow();</span>
+        
+<span class="nc" id="L171">        assertEquals(22, ghost.getMaxHealth());</span>
+<span class="nc" id="L172">        assertEquals(8, ghost.getAttack());</span>
+<span class="nc" id="L173">        assertEquals(2, ghost.getDefense());</span>
+<span class="nc" id="L174">        assertTrue(ghost.getLoot().isEmpty());</span>
+
+<span class="nc" id="L176">        Monster wraith = deanVault.findMonster(&quot;Registrar Wraith&quot;).orElseThrow();</span>
+<span class="nc" id="L177">        Armor wraithDrop = (Armor) wraith.getLoot().get(0);</span>
+        
+<span class="nc" id="L179">        assertEquals(30, wraith.getMaxHealth());</span>
+<span class="nc" id="L180">        assertEquals(9, wraith.getAttack());</span>
+<span class="nc" id="L181">        assertEquals(3, wraith.getDefense());</span>
+<span class="nc" id="L182">        assertEquals(1, wraith.getLoot().size());</span>
+<span class="nc" id="L183">        assertEquals(&quot;Graduation Gown Armor&quot;, wraithDrop.getName());</span>
+<span class="nc" id="L184">        assertEquals(&quot;Ceremonial robes with uncanny resilience.&quot;, wraithDrop.getDescription());</span>
+<span class="nc" id="L185">        assertEquals(5, wraithDrop.getDefenseBonus());</span>
+
+<span class="nc" id="L187">        Monster boss = finalChamber.findMonster(&quot;Final Exam Phantom&quot;).orElseThrow();</span>
+        
+<span class="nc" id="L189">        assertInstanceOf(BossMonster.class, boss);</span>
+<span class="nc" id="L190">        assertEquals(40, boss.getMaxHealth());</span>
+<span class="nc" id="L191">        assertEquals(10, boss.getAttack());</span>
+<span class="nc" id="L192">        assertEquals(4, boss.getDefense());</span>
+<span class="nc" id="L193">        assertTrue(boss.getLoot().isEmpty());</span>
+        
+<span class="nc" id="L195">        boss.takeDamage(20);</span>
+<span class="nc" id="L196">        assertEquals(13, ((BossMonster) boss).getCurrentAttack());</span>
+<span class="nc" id="L197">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>haunted-university-basement (Nov 16, 2026 7:19:00 PM)</div></body></html>

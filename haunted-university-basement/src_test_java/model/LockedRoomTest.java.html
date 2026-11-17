@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>LockedRoomTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">haunted-university-basement (Nov 16, 2026 7:19:00 PM)</a> &gt; <a href="../../index.html" class="el_group">haunted-university-basement</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">LockedRoomTest.java</span></div><h1>LockedRoomTest.java</h1><pre class="source lang-java linenums">package model;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import com.example.haunted.model.Room;
+import com.example.haunted.model.Key;
+
+<span class="fc" id="L13">class LockedRoomTest {</span>
+	// ARRANGE
+	private Key key;
+	private Room lockedRoom;
+	@BeforeEach
+	void setup() {
+<span class="fc" id="L19">		key = new Key(&quot;Key&quot;, &quot;Just a normal, ordinary key.&quot;);</span>
+<span class="fc" id="L20">		lockedRoom = new Room(&quot;1&quot;, &quot;Locked Room&quot;, &quot;This room is locked, you need a key to unlock it.&quot;);</span>
+<span class="fc" id="L21">		assertEquals(&quot;1&quot;, lockedRoom.getId());</span>
+<span class="fc" id="L22">		assertEquals(&quot;Locked Room&quot;, lockedRoom.getName());</span>
+<span class="fc" id="L23">		assertEquals(&quot;This room is locked, you need a key to unlock it.&quot;, lockedRoom.getDescription());</span>
+<span class="fc" id="L24">	}</span>
+	
+	@ParameterizedTest
+	@ValueSource(strings = {&quot;key&quot;, &quot;KEY&quot;, &quot;kEy&quot;})
+	void shouldUnlockAndIgnoreCase(String keyName) {
+		// ARRANGE
+<span class="fc" id="L30">		lockedRoom.setLocked(true, key.getName());</span>
+<span class="fc" id="L31">		assertTrue(lockedRoom.isLocked());</span>
+		
+		// ACT
+<span class="fc" id="L34">		boolean result = lockedRoom.unlock(keyName);</span>
+		
+		// ASSERT
+<span class="fc" id="L37">		assertTrue(result);</span>
+<span class="fc" id="L38">		assertFalse(lockedRoom.isLocked());</span>
+<span class="fc" id="L39">	}</span>
+	
+	@Test
+	void shouldUnlock() {
+		// ACT
+<span class="fc" id="L44">		boolean result = lockedRoom.unlock(null);</span>
+		
+		// ASSERT
+<span class="fc" id="L47">		assertTrue(result);</span>
+<span class="fc" id="L48">		assertFalse(lockedRoom.isLocked());</span>
+<span class="fc" id="L49">	}</span>
+	
+	@Test
+	void shouldNotUnlock() {
+		// ARRANGE
+<span class="fc" id="L54">		lockedRoom.setLocked(true, key.getName());</span>
+<span class="fc" id="L55">		assertTrue(lockedRoom.isLocked());</span>
+		
+		// ACT
+<span class="fc" id="L58">		boolean result = lockedRoom.unlock(null);</span>
+		
+		// ASSERT
+<span class="fc" id="L61">		assertFalse(result);</span>
+<span class="fc" id="L62">		assertTrue(lockedRoom.isLocked());</span>
+<span class="fc" id="L63">	}</span>
+	
+	@Test
+	void shouldNotUnlockRoomWithNullKey() {
+		// ARRANGE
+<span class="fc" id="L68">		lockedRoom.setLocked(true, null);</span>
+<span class="fc" id="L69">		assertTrue(lockedRoom.isLocked());</span>
+<span class="fc" id="L70">		assertEquals(null, lockedRoom.getRequiredKeyName());</span>
+		
+		// ACT
+<span class="fc" id="L73">		boolean result = lockedRoom.unlock(null);</span>
+		
+		// ASSERT
+<span class="fc" id="L76">		assertFalse(result);</span>
+<span class="fc" id="L77">		assertTrue(lockedRoom.isLocked());</span>
+<span class="fc" id="L78">	}</span>
+	
+	@Test
+	void throwsExceptionWhenIdIsNull() {
+<span class="pc" id="L82">		assertThrows(NullPointerException.class, () -&gt; new Room(null, &quot;Name&quot;, &quot;Description&quot;));</span>
+<span class="fc" id="L83">	}</span>
+	
+	@Test
+	void throwsExceptionWhenNameIsNull() {
+<span class="pc" id="L87">		assertThrows(NullPointerException.class, () -&gt; new Room(&quot;Id&quot;, null, &quot;Description&quot;));</span>
+<span class="fc" id="L88">	}</span>
+
+	@Test
+	void throwsExceptionWhenDescriptionIsNull() {
+<span class="pc" id="L92">		assertThrows(NullPointerException.class, () -&gt; new Room(&quot;Id&quot;, &quot;Name&quot;, null));</span>
+<span class="fc" id="L93">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>haunted-university-basement (Nov 16, 2026 7:19:00 PM)</div></body></html>

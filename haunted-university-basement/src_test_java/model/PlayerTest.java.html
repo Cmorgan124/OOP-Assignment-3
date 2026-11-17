@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>PlayerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">haunted-university-basement (Nov 16, 2026 7:19:00 PM)</a> &gt; <a href="../../index.html" class="el_group">haunted-university-basement</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">model</a> &gt; <span class="el_source">PlayerTest.java</span></div><h1>PlayerTest.java</h1><pre class="source lang-java linenums">package model;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import com.example.haunted.model.Armor;
+import com.example.haunted.model.Inventory;
+import com.example.haunted.model.Weapon;
+import com.example.haunted.model.Room;
+import com.example.haunted.model.Player;
+
+<span class="nc" id="L14">public class PlayerTest {</span>
+	
+<span class="nc" id="L16">    private final String name = &quot;name&quot;;</span>
+<span class="nc" id="L17">    private final int maxHealth = 100;</span>
+<span class="nc" id="L18">    private final int baseAttack = 10;</span>
+<span class="nc" id="L19">    private final int baseDefense = 5;</span>
+<span class="nc" id="L20">    private int health = maxHealth;</span>
+<span class="nc" id="L21">    private final Inventory inventory = new Inventory(5);</span>
+    private Player player;
+    private Weapon equippedWeapon;
+    private Armor equippedArmor;
+    private Room currentRoom;
+    
+    @BeforeEach
+    void setUp() {
+        // Initialize the player object before each test
+<span class="nc" id="L30">        player = new Player(name, maxHealth, baseAttack, baseDefense, inventory);</span>
+<span class="nc" id="L31">    }</span>
+    
+    @Test 
+    void shouldThrowExceptionWhenNameIsNull() {
+        //Act &amp; Assert
+<span class="nc" id="L36">        assertThrows(NullPointerException.class,</span>
+<span class="nc" id="L37">                () -&gt; new Player(null, maxHealth, baseAttack, baseDefense, inventory));</span>
+<span class="nc" id="L38">    }</span>
+
+    @Test 
+    void shouldThrowExceptionWhenInventoryIsNull() {
+        //Act &amp; Assert
+<span class="nc" id="L43">        assertThrows(NullPointerException.class,</span>
+<span class="nc" id="L44">                () -&gt; new Player(name, maxHealth, baseAttack, baseDefense, null));</span>
+<span class="nc" id="L45">    }</span>
+    
+    @Test 
+    void shouldGetName() {
+        //Act 
+<span class="nc" id="L50">        String name = player.getName();</span>
+        //Assert
+<span class="nc" id="L52">        assertEquals(this.name, name);</span>
+<span class="nc" id="L53">    }</span>
+
+    @Test 
+    void shouldGetHealth() {
+        //Act
+<span class="nc" id="L58">        int health = player.getHealth();</span>
+        //Assert
+<span class="nc" id="L60">        assertEquals(this.health, health);</span>
+<span class="nc" id="L61">    }</span>
+
+    @Test
+    void shouldGetMaxHealth() {
+        //Act
+<span class="nc" id="L66">        int maxHealth = player.getMaxHealth();</span>
+        //Assert
+<span class="nc" id="L68">        assertEquals(this.maxHealth, maxHealth);</span>
+<span class="nc" id="L69">    }</span>
+
+    @Test
+    void shouldGetBaseAttack() {
+        //Act
+<span class="nc" id="L74">        int baseAttack = player.getBaseAttack();</span>
+        //Assert
+<span class="nc" id="L76">        assertEquals(this.baseAttack, baseAttack);</span>
+<span class="nc" id="L77">    }</span>
+
+    @Test
+    void shouldGetBaseDefense() {
+        //Act
+<span class="nc" id="L82">        int baseDefense = player.getBaseDefense();</span>
+        //Assert
+<span class="nc" id="L84">        assertEquals(this.baseDefense, baseDefense);</span>
+<span class="nc" id="L85">    }</span>
+
+    @Test 
+    void shouldGetInventory() {
+        //Act
+<span class="nc" id="L90">        Inventory inventory = player.getInventory();</span>
+        //Assert
+<span class="nc" id="L92">        assertEquals(this.inventory, inventory);</span>
+<span class="nc" id="L93">    }</span>
+
+    @Test 
+    void shouldGetEquippedWeapon() {
+        //Act
+<span class="nc" id="L98">        Weapon equippedWeapon = player.getEquippedWeapon();</span>
+        //Assert
+<span class="nc" id="L100">        assertEquals(this.equippedWeapon, equippedWeapon);</span>
+<span class="nc" id="L101">    }</span>
+
+    @Test 
+    void shouldGetEquippedArmor() {
+        //Act
+<span class="nc" id="L106">        Armor equippedArmor = player.getEquippedArmor();</span>
+        //Assert
+<span class="nc" id="L108">        assertEquals(this.equippedArmor, equippedArmor);</span>
+<span class="nc" id="L109">    }</span>
+
+    @Test
+    void shouldGetCurrentRoom() {
+        //Act
+<span class="nc" id="L114">        Room currentRoom = player.getCurrentRoom();</span>
+        //Assert
+<span class="nc" id="L116">        assertEquals(this.currentRoom, currentRoom);</span>
+<span class="nc" id="L117">    }</span>
+    
+    @Test 
+    void shouldSetCurrentRoom() {
+        //Arrange
+<span class="nc" id="L122">        Room newRoom = new Room(&quot;id&quot;, &quot;roomName&quot;, &quot;roomDescription&quot;);</span>
+        //Act
+<span class="nc" id="L124">        player.setCurrentRoom(newRoom);</span>
+        //Assert
+<span class="nc" id="L126">        assertEquals(newRoom, player.getCurrentRoom());</span>
+<span class="nc" id="L127">    }</span>
+
+    @Test 
+    void shouldThrowExceptionWhenSettingCurrentRoomToNull() {
+<span class="nc" id="L131">        assertThrows(NullPointerException.class, () -&gt; player.setCurrentRoom(null));</span>
+<span class="nc" id="L132">    }</span>
+    
+    @Test 
+    void shouldHealPlayer() {
+        //Arrange
+<span class="nc" id="L137">        int damage = 20;</span>
+<span class="nc" id="L138">        player.takeDamage(damage);</span>
+        //Act
+<span class="nc" id="L140">        player.heal(10);</span>
+        //Assert
+<span class="nc" id="L142">        assertEquals(maxHealth - damage + 10, player.getHealth());</span>
+<span class="nc" id="L143">    }</span>
+    
+    @Test
+    void shouldBeAlive() {
+        //Act
+<span class="nc" id="L148">        boolean isAlive = player.isAlive();</span>
+        //Assert
+<span class="nc" id="L150">        assertTrue(isAlive);</span>
+<span class="nc" id="L151">    }</span>
+
+    @Test 
+    void shouldBeDead() {
+        //Arrange
+<span class="nc" id="L156">        player.takeDamage(maxHealth);</span>
+        //Act
+<span class="nc" id="L158">        boolean isAlive = player.isAlive();</span>
+        //Assert
+<span class="nc" id="L160">        assertFalse(isAlive);</span>
+<span class="nc" id="L161">    }</span>
+    
+    @Test 
+    void shouldGetAttackPower() {
+        //Arrange
+<span class="nc" id="L166">        Weapon weapon = new Weapon(&quot;weaponName&quot;, &quot;weaponDescription&quot;, 5);</span>
+<span class="nc" id="L167">        player.getInventory().addItem(weapon);</span>
+<span class="nc" id="L168">        player.equipWeapon(weapon);</span>
+        //Act
+<span class="nc" id="L170">        int attackPower = player.getAttackPower();</span>
+        //Assert
+<span class="nc" id="L172">        assertEquals(baseAttack + weapon.getAttackBonus(), attackPower);</span>
+<span class="nc" id="L173">    }</span>
+
+    @Test
+    void shouldGetDefensePower() {
+        //Arrange
+<span class="nc" id="L178">        Armor armor = new Armor(&quot;armorName&quot;, &quot;armorDescription&quot;, 5);</span>
+<span class="nc" id="L179">        player.getInventory().addItem(armor);</span>
+<span class="nc" id="L180">        player.equipArmor(armor);</span>
+        //Act
+<span class="nc" id="L182">        int defensePower = player.getDefensePower();</span>
+        //Assert
+<span class="nc" id="L184">        assertEquals(baseDefense + armor.getDefenseBonus(), defensePower);</span>
+<span class="nc" id="L185">    }</span>
+    
+    @Test 
+    void shouldEquipWeapon() {
+        //Arrange
+<span class="nc" id="L190">        Weapon weapon = new Weapon(&quot;weaponName&quot;, &quot;weaponDescription&quot;, 5);</span>
+<span class="nc" id="L191">        player.getInventory().addItem(weapon);</span>
+        //Act
+<span class="nc" id="L193">        player.equipWeapon(weapon);</span>
+        //Assert
+<span class="nc" id="L195">        assertEquals(weapon, player.getEquippedWeapon());</span>
+<span class="nc" id="L196">    }</span>
+
+    @Test
+    void shouldEquipArmor() {
+        //Arrange
+<span class="nc" id="L201">        Armor armor = new Armor(&quot;armorName&quot;, &quot;armorDescription&quot;, 5);</span>
+<span class="nc" id="L202">        player.getInventory().addItem(armor);</span>
+        //Act
+<span class="nc" id="L204">        player.equipArmor(armor);</span>
+        //Assert
+<span class="nc" id="L206">        assertEquals(armor, player.getEquippedArmor());</span>
+<span class="nc" id="L207">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span>haunted-university-basement (Nov 16, 2026 7:19:00 PM)</div></body></html>
